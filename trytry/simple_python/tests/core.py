@@ -72,9 +72,9 @@ class FlowPassTest(TestCase):
 
 class FlowDiscoveryTest(TestCase):
 
-    TRYTRY_FLOWS = [
-        'trytry.simple_python.tests.simple_python',
-    ]
+    TRYTRY_FLOWS = {
+        'simple_python': 'trytry.simple_python.tests.simple_python',
+    }
 
     def test_all_flows(self):
         with self.settings(TRYTRY_FLOWS=self.TRYTRY_FLOWS):

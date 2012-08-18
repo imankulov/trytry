@@ -27,6 +27,6 @@ CACHES = {
 }
 
 # Path to module with steps
-TRYTRY_FLOWS = [
-    'trytry.simple_python.tests.simple_python',
-]
+TRYTRY_FLOWS = {
+    'simple_python': 'trytry.simple_python.tests.simple_python',
+}
