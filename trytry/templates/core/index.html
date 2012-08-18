@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% block content %}
-Hello world. My URL is {% url 'core-index' %}.
+<div class="row">
+  <div class="span10">
+    <h1>Welcome to TryTry project!</h1>
+    <br />
+    <div class="btn-group">
+      <h3>Choose a course what you want to study</h3>
+        {% for flow in all_flows %}
+        <a href="{{ flow }}" class="btn">{{ flow }}</a>
+        {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}

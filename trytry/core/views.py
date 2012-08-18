@@ -7,7 +7,8 @@ from trytry.core.utils import get_all_flows
 
 def index(request):
     flow = request.GET.get('flow', None)
-    if flow and flow in get_all_flows().keys():
+    all_flows = get_all_flows().keys()
+    if flow and flow in all_flows:
         view = "trytry.%(flow)s.views.%(flow)s_get_task" % {'flow': flow}
         return HttpResponseRedirect(reverse(view))
-    return render(request, 'core/index.html', {})
+    return render(request, 'core/index.html', {'all_flows': all_flows})
