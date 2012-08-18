@@ -9,3 +9,13 @@ def get_all_flows():
 
 def create_flow(flow_module):
     return Flow.objects.create(flow_module=flow_module)
+
+
+def get_progress(flow, step):
+    step_list = flow.get_flow_settings().steps
+    try:
+        step_index = step_list.index(step) + 1
+    except ValueError:
+        return 0
+    else:
+        return int((float(step_index) / len(step_list)) * 100)
