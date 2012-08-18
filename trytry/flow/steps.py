@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from dotdict import dotdict
 import subprocess as subp
+import uuid
 
 
-class StepRunner(object):
+class GenericStep(object):
 
     expected_out = None
     on_success_hint = None
@@ -15,8 +16,10 @@ class StepRunner(object):
         json_result = self.analyze(out, err, returncode)
         return json_result
 
-    def get_command(self, user_input):
-        raise NotImplementedError('Must be implemented in subclass')
+    def get_uuid(self):
+        if not hasattr(self, '_uuid'):
+            self._uuid = str(uuid.uuid4())
+        return self._uuid
 
     def run_command(self, user_input):
         command = self.get_command(user_input)
@@ -25,6 +28,12 @@ class StepRunner(object):
         out = out.rstrip() or None
         err = err.rstrip() or None
         return out, err, pipe.returncode
+
+    def get_command(self, user_input):
+        """
+        Return a tuple ([command, to, execute], "stdin")
+        """
+        raise NotImplementedError('Must be implemented in subclass')
 
     def analyze(self, out, err, returncode):
         ret = {
