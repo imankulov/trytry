@@ -61,7 +61,6 @@ class Flow(models.Model):
             return None
         return steps[idx + 1]
 
-
     def get_flow_module(self):
         if not hasattr(self, '_mod'):
             self._mod = importlib.import_module(self.flow_module)

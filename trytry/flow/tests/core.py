@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.utils.unittest import TestCase
+from django.test import TestCase
 from trytry.flow.utils import create_flow
 from trytry.flow.tests.simple_python import Step1, Step2
+from trytry.core.utils import get_all_flows
 
 
 class PythonStep1Test(TestCase):
@@ -67,3 +68,14 @@ class FlowPassTest(TestCase):
         self.assertTrue(result.goto_next)
         self.assertEqual(flow.current_step, 'Step2')
         #self.assertEqual(flow.state, 'complete')
+
+
+class FlowDiscoveryTest(TestCase):
+
+    TRYTRY_FLOWS = [
+        'trytry.flow.tests.simple_python',
+    ]
+
+    def test_all_flows(self):
+        with self.settings(TRYTRY_FLOWS=self.TRYTRY_FLOWS):
+            self.assertEqual(get_all_flows(), self.TRYTRY_FLOWS)
