@@ -1,8 +1,23 @@
 {% extends "base.html" %}
 {% load url from future %}
+{% block head %}
+    <script>
+      var flow_name = "{{ flow_name }}";
+    </script>
+{% endblock %}
 {% block content %}
 <div class="row">
   <div class="span10">
+    {% if flow_name %}
+    <div class="row">
+      <div class="8">
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="input_code" />
+          <p class="help-block">Test me again</p>
+        </div>
+      </div>
+    </div>
+    {% else %}
     <h1>Welcome to TryTry project!</h1>
     <br />
     <div class="btn-group">
@@ -11,6 +26,7 @@
         <a href="{{ flow }}" class="btn">{{ flow }}</a>
         {% endfor %}
     </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
