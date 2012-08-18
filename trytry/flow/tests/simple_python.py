@@ -2,6 +2,11 @@
 from trytry.flow.steps import GenericPythonStep
 
 
+__flow__ = {
+    'steps': ['Step1', 'Step2'],
+}
+
+
 class Step1(GenericPythonStep):
     """
     Write "hello world", son of a bitch!

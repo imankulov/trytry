@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.utils.unittest import TestCase
 from trytry.flow.utils import create_flow
-from trytry.flow.tests.simple_python import Step1
+from trytry.flow.tests.simple_python import Step1, Step2
 
 
 class PythonStep1Test(TestCase):
@@ -45,5 +45,6 @@ class FlowTest(TestCase):
 
     def test_create_flow(self):
         flow = create_flow('trytry.flow.tests.simple_python')
-        current_step = flow.get_current_step()
-        self.assertTrue(isinstance(current_step, Step1))
+        self.assertIsInstance(flow.get_current_step(), Step1)
+        self.assertIsInstance(flow.get_next_step(), Step2)
+        self.assertEqual(flow.get_prev_step(), None)
