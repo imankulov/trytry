@@ -65,7 +65,7 @@ INSTALLED_APPS = (
     'south',
     # internal apps
     'trytry.core',
-    'trytry.flow',
+    'trytry.simple_python',
 )
 
 LOGGING = {

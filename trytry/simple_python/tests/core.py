@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
-from trytry.flow.utils import create_flow
-from trytry.flow.tests.simple_python import Step1, Step2
+from trytry.core.utils import create_flow
+from trytry.simple_python.tests.simple_python import Step1, Step2
 from trytry.core.utils import get_all_flows
 
 
@@ -45,7 +45,7 @@ class StateSaveTest(TestCase):
 class FlowTest(TestCase):
 
     def test_create_flow(self):
-        flow = create_flow('trytry.flow.tests.simple_python')
+        flow = create_flow('trytry.simple_python.tests.simple_python')
         self.assertIsInstance(flow.get_current_step(), Step1)
         self.assertIsInstance(flow.get_next_step(), Step2)
         self.assertEqual(flow.get_prev_step(), None)
@@ -54,7 +54,7 @@ class FlowTest(TestCase):
 class FlowPassTest(TestCase):
 
     def test_pass_flow(self):
-        flow = create_flow('trytry.flow.tests.simple_python')
+        flow = create_flow('trytry.simple_python.tests.simple_python')
         # step 1
         result = flow.apply('print "hello world"')
         self.assertTrue(result.goto_next)
@@ -73,7 +73,7 @@ class FlowPassTest(TestCase):
 class FlowDiscoveryTest(TestCase):
 
     TRYTRY_FLOWS = [
-        'trytry.flow.tests.simple_python',
+        'trytry.simple_python.tests.simple_python',
     ]
 
     def test_all_flows(self):

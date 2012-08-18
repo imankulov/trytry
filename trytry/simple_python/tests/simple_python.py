@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from trytry.flow.steps import GenericPythonStep
+from trytry.simple_python.steps import GenericPythonStep
 
 
 __flow__ = {
