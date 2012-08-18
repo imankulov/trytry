@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
+import re
+import sys
 import uuid
+import markdown
 import subprocess as subp
 from dotdict import dotdict
+from django.utils.encoding import smart_unicode
 
 
 class GenericStep(object):
@@ -52,4 +56,25 @@ class GenericStep(object):
         return dotdict(ret)
 
     def get_task(self):
-        return self.__doc__
+        docstring = self.__doc__
+        return self.render(docstring)
+
+    def render(self, context):
+        def count_shiftlen(s):
+            if s.strip():
+                return len(r.match(s).group(0))
+            else:
+                return sys.maxint
+        output = smart_unicode(context)
+        # Отрезаем начало у каждой из строк
+        # (пустые строки не учитываются при подсчете shiftlen)
+        r = re.compile('^ *')
+        lines = output.splitlines()
+        if not lines:
+            return ''
+        shiftlen = min(
+            map(count_shiftlen, lines)
+        )
+        lines = [l[shiftlen:] for l in lines]
+        output = u'\n'.join(lines)
+        return markdown.markdown(output)
