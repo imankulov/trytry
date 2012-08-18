@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import importlib
-from django.db import models
 from dotdict import dotdict
+from django.db import models
 
 
 class Flow(models.Model):
@@ -74,4 +74,3 @@ class Flow(models.Model):
         if not self.current_step:
             self.current_step = self.get_flow_settings().steps[0]
         super(Flow, self).save(*args, **kwargs)
-
