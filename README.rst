@@ -19,3 +19,8 @@ What we propose:
   write your own application on a basis of this code.
 - Unless we run out of time, a set of shiny badges and connection with social
   networks will be at the service of your happy visitors.
+
+
+.. image:: https://secure.travis-ci.org/imankulov/trytry.png?branch=master
+   :alt: Build Status
+   :target: https://secure.travis-ci.org/imankulov/trytry
