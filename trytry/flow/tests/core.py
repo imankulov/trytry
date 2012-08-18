@@ -48,3 +48,22 @@ class FlowTest(TestCase):
         self.assertIsInstance(flow.get_current_step(), Step1)
         self.assertIsInstance(flow.get_next_step(), Step2)
         self.assertEqual(flow.get_prev_step(), None)
+
+
+class FlowPassTest(TestCase):
+
+    def test_pass_flow(self):
+        flow = create_flow('trytry.flow.tests.simple_python')
+        # step 1
+        result = flow.apply('print "hello world"')
+        self.assertTrue(result.goto_next)
+        self.assertEqual(flow.current_step, 'Step2')
+        # step 2, wrong action
+        result = flow.apply('print "hello world"')
+        self.assertFalse(result.goto_next)
+        self.assertEqual(flow.current_step, 'Step2')
+        # step 2
+        result = flow.apply('print 1 + 1')
+        self.assertTrue(result.goto_next)
+        self.assertEqual(flow.current_step, 'Step2')
+        #self.assertEqual(flow.state, 'complete')

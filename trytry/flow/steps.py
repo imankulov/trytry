@@ -105,7 +105,6 @@ class GenericPythonStep(GenericStep):
         return out, err, pipe.returncode
 
     def get_cache_key(self):
-        return 'hello'
         cache_key = 'step_state:{0}'.format(self.get_uuid())
         return cache_key
 
