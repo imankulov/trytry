@@ -10,6 +10,8 @@ ADMINS = (
     ('Pavel Vavilin', 'shtartora@gmail.com'),
 )
 
+DEFAULT_FROM_EMAIL = 'try@try-try.me'
+
 MANAGERS = ADMINS
 
 DATABASES = {
