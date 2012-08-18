@@ -7,6 +7,11 @@ from django.core.cache import cache
 from trytry.core.steps import GenericStep
 
 
+__flow__ = {
+    'steps': ['Step1', 'Step2'],
+}
+
+
 class GenericPythonStep(GenericStep):
     on_err_hint = ("Oh my God! Something goes wrong. Try read "
                    "instruction more carefully and perform the "
@@ -70,3 +75,13 @@ class GenericPythonStep(GenericStep):
         with open(filename) as fd:
             cache.set(self.get_cache_key(), fd.read())
         os.unlink(filename)
+
+
+class Step1(GenericPythonStep):
+    """
+    Exercise #1
+    ----
+
+    In this exercise, you will need to change the code in the left box so it will print out "Hello, World!" instead of "Goodbye, World!".
+    """
+    pass

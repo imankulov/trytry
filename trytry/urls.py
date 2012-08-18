@@ -6,6 +6,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = patterns('',
     url(r'^', include('trytry.core.urls')),
+    url(r'^simple_python/', include('trytry.simple_python.urls')),
 )
 if settings.DEBUG:
     admin.autodiscover()
