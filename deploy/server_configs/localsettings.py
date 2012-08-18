@@ -28,3 +28,8 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+# Path to module with steps
+TRYTRY_FLOWS = {
+    'simple_python': 'trytry.simple_python.tests.simple_python',
+}

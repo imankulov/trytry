@@ -4,7 +4,7 @@ from trytry.core.models import Flow
 
 
 def get_all_flows():
-    return getattr(settings, 'TRYTRY_FLOWS', [])
+    return getattr(settings, 'TRYTRY_FLOWS', {})
 
 
 def create_flow(flow_module):
