@@ -3,7 +3,7 @@ import cuisine
 from fabric.api import settings, hide, run, sudo, cd, put
 
 packages = ['lxc', 'python-psycopg2', 'supervisor', 'nginx', 'uwsgi',
-            'uwsgi-plugin-python',
+            'uwsgi-plugin-python', 'postfix',
             'python-virtualenv', 'python-pip', 'git', 'memcached',
             'python-memcache']
 repo_source = 'https://github.com/imankulov/trytry.git'

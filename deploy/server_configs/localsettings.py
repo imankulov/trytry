@@ -10,6 +10,8 @@ ADMINS = (
     ('Pavel Vavilin', 'shtartora@gmail.com'),
 )
 
+DEFAULT_FROM_EMAIL = 'try@try-try.me'
+
 MANAGERS = ADMINS
 
 DATABASES = {
@@ -25,4 +27,9 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '127.0.0.1:11211',
     }
+}
+
+# Path to module with steps
+TRYTRY_FLOWS = {
+    'simple_python': 'trytry.simple_python.tests.simple_python',
 }
