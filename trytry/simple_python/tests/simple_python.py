@@ -9,7 +9,12 @@ __flow__ = {
 
 class Step1(GenericPythonStep):
     """
-    Write "hello world", son of a bitch!
+    Exersise #1
+    ----
+
+    * Write "hello world", son of a bitch!
+        - print "hello world"
+        - print("hello world")
     """
 
     expected_out = 'hello world'
