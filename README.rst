@@ -1,7 +1,7 @@
-About trytry
+About try-try
 ============
 
-"trytry" ([traıtraı]) is our audacious attempt to create a framework for writing
+"try-try" ([traıtraı]) is our audacious attempt to create a framework for writing
 "try-whatever" webservices.
 
 There is a lot of services, aiming to teach you some brand-new buzzy languages,
