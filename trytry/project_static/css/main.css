@@ -1,5 +1,5 @@
 #text-block {
-    height: 200px;
+    min-height: 200px;
     padding: 3px 6px 3px 3px;
     background: none repeat scroll 0 0 lightgrey;
 }
