@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+<script src="{% static "js/prettify/prettify.js" %}"></script>
+<link rel="stylesheet" href="{% static "css/prettify.css" %}" />
+<script>
+  $(function () {prettyPrint();});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="span12">
+    <h2>Here are you results!</h2>
+    {% for log in log_list %}
+    <div class="well">
+      <pre class="prettyprint command-log label">
+        {{ log.command}}
+      </pre>
+      <pre class="label log label-inverse">
+        {{ log.out }}
+      </pre>
+      {% if log.err %}
+      <pre class="label log label-important">
+        {{ log.err }}
+      </pre>
+      {% endif %}
+      <pre class="label log label-info">
+        {{ log.hint }}
+      </pre>
+    </div>
+    {% endfor %}
+    <div class="progress progress-success progress-striped">
+      <div class="bar" id="flow_progress" style="width: {{ progress }}%">
+      </div>
+    </div>
+    <div class="share-box">
+      <h3>You can share your results with your friends:</h>
+      <br />
+      <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check this out! My results in TryTry Project {{ flow.name }}." data-hashtags="djangodash,trytry" data-dnt="true">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </div>
+</div>
+{% endblock %}

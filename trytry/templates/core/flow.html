@@ -27,7 +27,7 @@
             <a href="#">&larr;</a>
           </li>
           <li>
-            <a href="/status/{{ flow.url }}/">status</a>
+            <a href="/status/{{ flow_id }}/">status</a>
           </li>
           <li class="next">
             <a href="#">&rarr;</a>
@@ -36,6 +36,10 @@
         <div class="progress progress-success progress-striped">
           <div class="bar" id="flow_progress" style="width: 1%">
           </div>
+        </div>
+        <div class="social-share">
+          <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check this out! My results in TryTry Project {{ flow.name }}." data-hashtags="trytry djangodash" data-dnt="true">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         </div>
     </div>
 </div>

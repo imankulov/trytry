@@ -14,9 +14,11 @@ def index(request):
     if not flow or flow not in all_flows:
         flow = None
     template = 'core/flow.html' if flow else 'core/dashboard.html'
+    flow_obj = _get_flow(request, flow)
     return render(request, template,
                   {'all_flows': all_flows,
-                   'flow': all_flows.get(flow, None)})
+                   'flow': all_flows.get(flow, None),
+                   'flow_id': flow_obj.id})
 
 
 def get_task(request, flow_name):
@@ -54,8 +56,8 @@ def get_task(request, flow_name):
     return wrap_json(result)
 
 
-def get_status(request, flow_name):
-    flow = _get_flow(request, flow_name)
+def get_status(request, flow_id):
+    flow = _get_flow(request, None, id=flow_id)
     if flow is None:
         return redirect('/')
     log_list = flow.log_set.all().order_by('timestamp')
@@ -63,8 +65,9 @@ def get_status(request, flow_name):
     return render(request, template, {'log_list': log_list, 'progress': get_progress(flow)})
 
 
-def _get_flow(request, flow_name):
-    id = request.session.get('{0}_flow_id'.format(flow_name), None)
+def _get_flow(request, flow_name=None, id=None):
+    if id is None and flow_name:
+        id = request.session.get('{0}_flow_id'.format(flow_name), None)
     try:
         flow = Flow.objects.get(id=id)
     except Flow.DoesNotExist:
