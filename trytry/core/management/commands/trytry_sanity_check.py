@@ -87,14 +87,6 @@ class Command(NoArgsCommand):
                            'http://try-try.readthedocs.org/en/latest/lxc.html '
                            'for more details'.format(reason))
 
-    def check_flows_defined_support(self):
-        """ Check TRYTRY_FLOWS """
-        if settings.TRYTRY_FLOWS:
-            return ok('Variable settings.TRYTRY_FLOWS is defined')
-        else:
-            return ok('Variable settings.TRYTRY_FLOWS is undefined')
-
-
 def ok(text):
     return (True, text)
 

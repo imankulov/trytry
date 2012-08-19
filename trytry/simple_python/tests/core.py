@@ -77,16 +77,6 @@ class FlowPassTest(TestCase):
         self.assertEqual(flow.state, 'destroyed')
 
 
-class FlowDiscoveryTest(TestCase):
-
-    TRYTRY_FLOWS = {
-        'simple_python': 'trytry.simple_python.tests.simple_python',
-    }
-
-    def test_all_flows(self):
-        with self.settings(TRYTRY_FLOWS=self.TRYTRY_FLOWS):
-            self.assertEqual(get_all_flows(), self.TRYTRY_FLOWS)
-
 
 class UnicodeTest(TestCase):
 

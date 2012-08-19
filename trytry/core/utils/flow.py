@@ -1,11 +1,23 @@
 # -*- coding: utf-8 -*-
+import importlib
 from django.conf import settings
 from trytry.core.models import Flow
 
 
+_flows = None
 def get_all_flows():
-    return settings.TRYTRY_FLOWS
-
+    global _flows
+    if _flows is None:
+        _flows = []
+        for app in settings.INSTALLED_APPS:
+            steps_module_name = '{0}.steps'.format(app)
+            try:
+                mod = importlib.import_module(steps_module_name)
+            except ImportError:
+                continue
+            if hasattr(mod, '__flow__'):
+                _flows.append(steps_module_name)
+    return _flows
 
 def create_flow(flow_module):
     return Flow.objects.create(flow_module=flow_module)

@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # external apps
     'south',
+    'jsonify',
     # internal apps
     'trytry.core',
     'trytry.simple_python',
@@ -94,7 +95,6 @@ LOGGING = {
 }
 
 #--- Default settings for try-try defined values
-TRYTRY_FLOWS = {}
 TRYTRY_SOFT_TIMEOUT = 5
 TRYTRY_HARD_TIMEOUT = 10
 TRYTRY_LXC_ENABLED = False
