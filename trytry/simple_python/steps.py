@@ -49,7 +49,7 @@ class Step1(GenericPythonStep):
 
     In this exercise, you will need to print "Hello World!".
     """
-    step = "Step1"
+    name = "Step1"
     expected_out = "Hello World!"
     on_success_hint = u'Congratulation!'
     on_wrong_out_hint = u'Try to print "Hello World!"'
