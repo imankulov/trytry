@@ -8,6 +8,8 @@ __flow__ = {
     'setup': 'setup',
     'teardown': 'teardown',
     'lxc_container': 'bash',
+    'name': 'Simple Bash',
+    'url': 'simple_bash'
 }
 
 

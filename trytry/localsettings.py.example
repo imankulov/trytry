@@ -22,6 +22,6 @@ SECRET_KEY = 'A secret key'
 TRYTRY_PROJECT_NAME = 'Try-try project'
 # Path to module with steps
 TRYTRY_FLOWS =[
-    'trytry.simple_python.tests.simple_python',
+    'trytry.simple_python.steps',
     'trytry.simple_bash.steps',
 ]
