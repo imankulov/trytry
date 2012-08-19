@@ -33,6 +33,7 @@ class Flow(models.Model):
             else:
                 self.state = 'complete'
             self.save()
+        Log.objects.create(command=user_input, out=ret.ok_text, err=ret.err_text, flow=self)
         return ret
 
     def get_task(self):
@@ -120,3 +121,12 @@ class Flow(models.Model):
         if not self.current_step:
             self.current_step = self.get_flow_settings().steps[0]
         super(Flow, self).save(*args, **kwargs)
+
+
+class Log(models.Model):
+
+    timestamp = models.DateTimeField(auto_now_add=True)
+    command = models.TextField()
+    out = models.TextField(null=True)
+    err = models.TextField(null=True)
+    flow = models.ForeignKey(Flow)

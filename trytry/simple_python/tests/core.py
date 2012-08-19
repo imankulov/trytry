@@ -2,7 +2,6 @@
 from django.test import TestCase
 from trytry.core.utils import create_flow
 from trytry.simple_python.tests.simple_python import Step1, Step2
-from trytry.core.utils import get_all_flows
 
 
 class PythonStep1Test(TestCase):
