@@ -19,13 +19,6 @@ DATABASES = {
 }
 SECRET_KEY = 'A secret key'
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
-}
-
 TRYTRY_PROJECT_NAME = 'Try-try project'
 # Path to module with steps
 TRYTRY_FLOWS = {
