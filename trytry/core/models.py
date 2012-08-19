@@ -16,6 +16,10 @@ class Flow(models.Model):
     state = models.CharField(u'Flow state', choices=STATE_CHOICES,
                              default='active', max_length=64)
 
+    def __str__(self):
+        from trytry.core.utils import get_flow_name
+        return get_flow_name(self.flow_module)
+
     def apply(self, user_input):
         ret = self.get_current_step()(user_input)
         if ret['goto_next']:
