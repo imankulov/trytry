@@ -29,4 +29,4 @@ def get_progress(flow):
 
 def get_flow_name(module_name):
     reverse_dict = dict([(v, k) for (k, v) in get_all_flows().iteritems()])
-    return reverse_dict.get(module_name, '')
+    return reverse_dict.get(module_name, settings.PROJECT_NAME)
