@@ -48,6 +48,7 @@ def get_task(request, flow_name):
             command_result = flow.apply(data.get('command'))
     result = {
         'task': flow.get_task(),
+        'id': flow.id,
         'progress': get_progress(flow),
         'flow_name': str(flow),
         'step_prompt': flow.get_prompt()

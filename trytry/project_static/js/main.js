@@ -80,6 +80,9 @@ updateData = function (data) {
    $("#flow_url").text(data.flow_url);
    $("#text-block").html(data.task);
    $(".bar").css('width', data.progress + '%');
+   if (data.progress === 100) {
+       window.location = '/status/' + data.id + '/';
+   }
 };
 
 updateStep = function (navigate) {
