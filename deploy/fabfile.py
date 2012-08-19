@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import cuisine
 from fabric.api import settings, hide, run, sudo, cd, put
+from fabric.contrib.files import append
 
 packages = ['lxc', 'python-psycopg2', 'supervisor', 'nginx', 'uwsgi',
             'uwsgi-plugin-python', 'postfix', 'timelimit',
@@ -36,6 +37,7 @@ def setup_user():
     cuisine.user_ensure('try', home='/home/try', shell='/bin/bash')
     u_run('mkdir -p /home/try/etc /home/try/tmp')
     u_run('test -f /home/try/tmp/touchme || touch /home/try/tmp/touchme')
+    append('/etc/sudoers', 'try ALL=(ALL) NOPASSWD: ALL')
 
 def setup_virtualenv():
     if u_test('test -d /home/try/env').failed:
