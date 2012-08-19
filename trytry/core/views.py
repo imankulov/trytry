@@ -19,14 +19,14 @@ from trytry.core.models import Flow
 from trytry.core.utils import create_flow, get_progress, wrap_json
 
 
-def get_task(request, ):
-    id = request.session.get('simple_python_flow_id', None)
+def get_task(request, flow_name):
+    id = request.session.get('{0}_flow_id'.format(flow_name), None)
     try:
         flow = Flow.objects.get(id=id)
     except Flow.DoesNotExist:
-        flow = create_flow('trytry.simple_python.steps')
+        flow = create_flow('trytry.{0}.steps'.format(flow_name))
         flow.setup_flow()
-        request.session['simple_python_flow_id'] = flow.id
+        request.session['{0}_flow_id'.format(flow_name)] = flow.id
     command_result = {}
     if request.method == 'POST':
         data = request.POST.copy()
