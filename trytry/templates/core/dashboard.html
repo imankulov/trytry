@@ -13,38 +13,38 @@
 {% block content %}
 
 <div class="page-header">
-	<h2>choose your course now</h2>
-	{% for flow, settings in all_flows.items %}
-	<a class="btn btn-success" href="/?flow={{ settings.url }}">{{ settings.name }}</a>
-	{% endfor %}
-	<a class="btn disabled" href="javascript:void()">
-		More courses are to be done ...
-	</a>
+  <h2>choose your course now</h2>
+  {% for flow, settings in all_flows.items %}
+  <a class="btn btn-success" href="/?flow={{ settings.url }}">{{ settings.name }}</a>
+  {% endfor %}
+  <a class="btn disabled" href="javascript:void()">
+    More courses are to be done ...
+  </a>
 </div>
 
 <img src="{% static 'img/geeks.jpg' %}">
 
 <div class="row">
-	<div class="span8">
-		<h2>These guys are geeky enough already</h2>
-	</div>
-	<div class="span4">
-		<h2>Are you?</h2>
-	</div>
+  <div class="span8">
+    <h2>These guys are geeky enough already</h2>
+  </div>
+  <div class="span4">
+    <h2>Are you?</h2>
+  </div>
 </div>
 
 
 <div class="row">
-	<div class="span6">
-		We place these guys on the dashboard, because all of them are probably
-		smarter than you (except for this guy giving the thumb up, he just pays
-		to be there, but never mind).
-	</div>
-	<div class="span4 offset2">
-		Try-try project offers a number of tests helping you
-		to improve your developer skills, play with a new
-		buzzy programming language, NoSQL database or technology.
-	</div>
+  <div class="span6">
+    We place these guys on the dashboard, because all of them are probably
+    smarter than you (except for this guy giving the thumb up, he just pays
+    to be there, but never mind).
+  </div>
+  <div class="span4 offset2">
+    Try-try project offers a number of tests helping you
+    to improve your developer skills, play with a new
+    buzzy programming language, NoSQL database or technology.
+  </div>
 </div>
 
 {% endblock %}
