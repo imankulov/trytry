@@ -5,7 +5,7 @@ import uuid
 import markdown
 from dotdict import dotdict
 from django.conf import settings
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_unicode, smart_str
 from trytry.core.utils.call import call
 from trytry.core.utils.lxc import lxc_wrap
 
@@ -45,7 +45,12 @@ class GenericStep(object):
             command = self.wrap_in_lxc(command)
         else:
             command = self.wrap_in_timeout(command)
-        return call(command, stdin)
+        stdin = smart_str(stdin)
+        command = [smart_str(c) for c in command]
+        out, err, returncode = call(command, stdin)
+        out = smart_unicode(out)
+        err = smart_unicode(err)
+        return (out, err, returncode)
 
     def get_command(self, user_input):
         """
