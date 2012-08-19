@@ -18,7 +18,7 @@ def index(request):
     return render(request, template,
                   {'all_flows': all_flows,
                    'flow': all_flows.get(flow, None),
-                   'flow_id': flow_obj.id})
+                   'flow_id': flow_obj and flow_obj.id})
 
 
 def get_task(request, flow_name):
