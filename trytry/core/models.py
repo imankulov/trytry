@@ -33,7 +33,14 @@ class Flow(models.Model):
             else:
                 self.state = 'complete'
             self.save()
-        Log.objects.create(command=user_input, out=ret.ok_text, err=ret.err_text, flow=self)
+        log_data = dict(
+            command=user_input,
+            out=ret.ok_text,
+            err=ret.err_text,
+            hint=ret.hint,
+            flow=self
+        )
+        Log.objects.create(**log_data)
         return ret
 
     def get_task(self):
@@ -129,4 +136,5 @@ class Log(models.Model):
     command = models.TextField()
     out = models.TextField(null=True)
     err = models.TextField(null=True)
+    hint = models.TextField(null=True)
     flow = models.ForeignKey(Flow)

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load url from future %}
 {% load staticfiles %}
 
 {% block head %}
@@ -26,6 +25,9 @@
         <ul class="pager">
           <li class="previous">
             <a href="#">&larr;</a>
+          </li>
+          <li>
+            <a href="/status/{{ flow.url }}/">status</a>
           </li>
           <li class="next">
             <a href="#">&rarr;</a>

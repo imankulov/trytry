@@ -14,3 +14,16 @@
     float: left;
     margin-right: 10px;
 }
+
+.command-log, .log {
+    white-space: pre-wrap;
+}
+
+.command-log:before {
+    content: '>>>';
+}
+
+.log-box {
+    margin: 5px auto;
+    border: solid 1px grey;
+}

@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import importlib
-from django.shortcuts import render
+from trytry.core.models import Flow
 from trytry.core.utils import get_all_flows
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import ensure_csrf_cookie
+from trytry.core.utils import create_flow, get_progress, wrap_json
 
 
 @ensure_csrf_cookie
@@ -17,15 +19,9 @@ def index(request):
                    'flow': all_flows.get(flow, None)})
 
 
-from trytry.core.models import Flow
-from trytry.core.utils import create_flow, get_progress, wrap_json
-
-
 def get_task(request, flow_name):
-    id = request.session.get('{0}_flow_id'.format(flow_name), None)
-    try:
-        flow = Flow.objects.get(id=id)
-    except Flow.DoesNotExist:
+    flow = _get_flow(request, flow_name)
+    if flow is None:
         flow = create_flow('trytry.{0}.steps'.format(flow_name))
         flow.setup_flow()
         request.session['{0}_flow_id'.format(flow_name)] = flow.id
@@ -56,6 +52,25 @@ def get_task(request, flow_name):
     }
     result.update(command_result)
     return wrap_json(result)
+
+
+def get_status(request, flow_name):
+    flow = _get_flow(request, flow_name)
+    if flow is None:
+        return redirect('/')
+    log_list = flow.log_set.all().order_by('timestamp')
+    template = 'core/status.html'
+    return render(request, template, {'log_list': log_list, 'progress': get_progress(flow)})
+
+
+def _get_flow(request, flow_name):
+    id = request.session.get('{0}_flow_id'.format(flow_name), None)
+    try:
+        flow = Flow.objects.get(id=id)
+    except Flow.DoesNotExist:
+        return None
+    else:
+        return flow
 
 
 def _generate_flow_dict():

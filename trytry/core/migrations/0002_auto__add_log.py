@@ -15,6 +15,7 @@ class Migration(SchemaMigration):
             ('command', self.gf('django.db.models.fields.TextField')()),
             ('out', self.gf('django.db.models.fields.TextField')(null=True)),
             ('err', self.gf('django.db.models.fields.TextField')(null=True)),
+            ('hint', self.gf('django.db.models.fields.TextField')(null=True)),
             ('flow', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Flow'])),
         ))
         db.send_create_signal('core', ['Log'])
@@ -38,6 +39,7 @@ class Migration(SchemaMigration):
             'command': ('django.db.models.fields.TextField', [], {}),
             'err': ('django.db.models.fields.TextField', [], {'null': 'True'}),
             'flow': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['core.Flow']"}),
+            'hint': ('django.db.models.fields.TextField', [], {'null': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'out': ('django.db.models.fields.TextField', [], {'null': 'True'}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
