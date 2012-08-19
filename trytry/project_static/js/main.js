@@ -1,25 +1,23 @@
-var updateStep, return_prompt;
+var updateStep, updateData, return_prompt,
+    url = '/' + flow_name + '/';
 
 $(function () {
-    $.getJSON('/' + flow_name + '/', function (data) {
+    $.getJSON(url, function (data) {
         step_prompt = data.step_prompt;
-        $("#flow_name").text(data.flow_name);
-        $("#text-block").html(data.task);
-        $(".bar").css('width', data.progress + '%');
+        updateData(data);
         var terminal = $("#code-block").terminal(function (command, term) {
-                var regexp = /^\s*$/,
-                    url = '/' + flow_name + '/';
+                var regexp = /^\s*$/;
                 if (!regexp.test(command)) {
+                    term.pause();
                     $.post(url, {'command': command}, function (data) {
                         if (data.err_text) {
                             term.error(data.err_text);
-                        } else {
+                        } else  if (data.ok_text) {
                             term.echo("[[i;#E07B08;#000]" + data.ok_text + "]");
                         }
                         term.echo("\n[[i;#6773E5;#000]" + data.hint + "]");
-                        $("#flow_name").text(data.flow_name);
-                        $("#text-block").html(data.task);
-                        $("#bar").css('width', data.progress + '%');
+                        updateData(data);
+                        term.resume();
                     });
                 }
         }, {
@@ -30,22 +28,23 @@ $(function () {
             tabcompletion: true
         });
     });
+    $('.previous').click(function () {
+        updateStep('prev');
+    });
+    $('.next').click(function () {
+        updateStep('next');
+    });
 });
 
-updateStep = function (flow_name, code_text) {
-    var url = '/' + flow_name + '/';
-    if (code_text) {
-        $.post(url, {'command': code_text}, function (data) {
-            $("#flow_name").text(data.flow_name);
-            $("#text-block").html(data.task);
-            $("#bar").css('width', data.progress + '%');
-        });
-    } else {
-        $.getJSON(url, function (data) {
-            $("#flow_name").text(data.flow_name);
-            $("#text-block").html(data.task);
-            $("#bar").css('width', data.progress + '%');
-            return false;
-        });
-    }
+updateData = function (data) {
+   $("#flow_name").text(data.flow_name);
+   $("#text-block").html(data.task);
+   $(".bar").css('width', data.progress + '%');
+};
+
+updateStep = function (navigate) {
+    $.post(url, {'navigate': navigate}, function (data) {
+        updateData(data);
+        return false;
+    });
 };

@@ -7,3 +7,10 @@
 .progress {
     margin-top: 5px;
 }
+
+#back_to_the_future {
+    font-size: 60px;
+    font-style: italic;
+    float: left;
+    margin-right: 10px;
+}

@@ -5,16 +5,31 @@ from trytry.core.utils import create_flow, get_progress, wrap_json
 
 def simple_python_get_task(request):
     id = request.session.get('simple_python_flow_id', None)
-    if id:
+    try:
         flow = Flow.objects.get(id=id)
-    else:
+    except Flow.DoesNotExist:
         flow = create_flow('trytry.simple_python.steps')
         flow.setup_flow()
         request.session['simple_python_flow_id'] = flow.id
     command_result = {}
     if request.method == 'POST':
         data = request.POST.copy()
-        command_result = flow.apply(data.get('command'))
+        # navigate through steps
+        if data.get('navigate'):
+            if data['navigate'] == 'prev':
+                flow.current_step = flow.get_prev_step_name()
+                flow.state = 'active'
+            elif data['navigate'] == 'next':
+                current_step = flow.get_next_step_name()
+                if current_step is None:
+                    flow.state = 'complete'
+                else:
+                    flow.current_step = current_step
+                    flow.state = 'active'
+            flow.save()
+            print flow.__dict__
+        if data.get('command'):
+            command_result = flow.apply(data.get('command'))
     result = {
         'task': flow.get_task(),
         'progress': get_progress(flow),

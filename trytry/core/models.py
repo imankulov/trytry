@@ -113,7 +113,6 @@ class Flow(models.Model):
             kwargs = kwargs or {}
             return func(*args, **kwargs)
 
-
     def save(self, *args, **kwargs):
         if not self.current_step:
             self.current_step = self.get_flow_settings().steps[0]

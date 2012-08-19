@@ -18,11 +18,19 @@
     {% if flow_name %}
     <div class="row">
       <div class="8">
-        <h2 id="flow_name">{{ flow_name }}</h2>
+        <a id="back_to_the_future" href="/">«</a><h2 id="flow_name">{{ flow_name }}</h2>
         <div id="code-block">
         </div>
         <div id="text-block">
         </div>
+        <ul class="pager">
+          <li class="previous">
+            <a href="#">&larr;</a>
+          </li>
+          <li class="next">
+            <a href="#">&rarr;</a>
+          </li>
+        </ul>
         <div class="progress progress-success progress-striped">
           <div class="bar" id="flow_progress" style="width: {{ progress|default:'1' }}%">
           </div>
