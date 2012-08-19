@@ -34,7 +34,7 @@
     <div class="btn-group">
       <h3>Choose a course what you want to study</h3>
         {% for flow in all_flows %}
-        <a href="{{ flow }}" class="btn">{{ flow }}</a>
+        <a href="/?flow={{ flow }}" class="btn">{{ flow }}</a>
         {% endfor %}
     </div>
     {% endif %}
