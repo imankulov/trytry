@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
+import os
 from trytry.simple_bash.steps import GenericBashStep
 
 
 __flow__ = {
     'steps': ['Step1', ],
+    'setup': 'setup',
+    'teardown': 'teardown',
 }
 
+
+def setup(flow_obj):
+    with open('.simple_bash', 'w') as fd:
+        fd.write(str(flow_obj.id))
+
+def teardown(flow_obj):
+    if os.path.isfile('.simple_bash'):
+        os.unlink('.simple_bash')
 
 class Step1(GenericBashStep):
     """

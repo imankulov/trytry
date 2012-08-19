@@ -70,6 +70,31 @@ class Flow(models.Model):
         flow = self.get_flow_module().__flow__
         return dotdict(flow)
 
+    def setup_flow(self):
+        """
+        Execute function defined in __flow__['setup']
+        """
+        return self._exec_flow_function('setup', (self, ))
+
+    def teardown_flow(self):
+        """
+        Execute function defined in __flow__['teardown']
+        """
+        return self._exec_flow_function('teardown', (self, ))
+
+    def _exec_flow_function(self, func_key, args=None, kwargs=None):
+        """
+        Helper function. Execute function by its key in __flow__ dict
+        """
+        flow_mod = self.get_flow_module()
+        flow_conf = flow_mod.__flow__
+        if func_key in flow_conf:
+            func = getattr(flow_mod, flow_conf[func_key])
+            args = args or ()
+            kwargs = kwargs or {}
+            return func(*args, **kwargs)
+
+
     def save(self, *args, **kwargs):
         if not self.current_step:
             self.current_step = self.get_flow_settings().steps[0]
