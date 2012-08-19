@@ -48,8 +48,8 @@ class GenericStep(object):
         stdin = smart_str(stdin)
         command = [smart_str(c) for c in command]
         out, err, returncode = call(command, stdin)
-        out = smart_unicode(out)
-        err = smart_unicode(err)
+        out = smart_unicode(out, strings_only=True)
+        err = smart_unicode(err, strings_only=True)
         return (out, err, returncode)
 
     def get_command(self, user_input):

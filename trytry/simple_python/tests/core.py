@@ -96,10 +96,12 @@ class UnicodeTest(TestCase):
     def test_str_ok(self):
         ret = self.step('print "тест"')
         self.assertEqual(ret.ok_text, u'тест')
+        self.assertEqual(ret.err_text, None)
 
     def test_unicode_ok(self):
         ret = self.step('print u"тест"')
         self.assertEqual(ret.ok_text, u'тест')
+        self.assertEqual(ret.err_text, None)
 
     def test_unicode_input_ok(self):
         ret = self.step(u'print u"тест"')
