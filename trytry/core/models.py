@@ -108,7 +108,11 @@ class Flow(models.Model):
         flow_mod = self.get_flow_module()
         flow_conf = flow_mod.__flow__
         if func_key in flow_conf:
-            func = getattr(flow_mod, flow_conf[func_key])
+            func_value = flow_conf[func_key]
+            if callable(func_value):
+                func = func_value
+            else:
+                func = getattr(flow_mod, flow_conf[func_key])
             args = args or ()
             kwargs = kwargs or {}
             return func(*args, **kwargs)
