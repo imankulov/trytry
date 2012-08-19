@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     # internal apps
     'trytry.core',
     'trytry.simple_python',
+    'trytry.simple_bash',
 )
 
 LOGGING = {
