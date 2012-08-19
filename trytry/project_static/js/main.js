@@ -1,5 +1,5 @@
 var updateStep, updateData, return_prompt,
-    url = '/' + flow_name + '/';
+    url = '/' + flow_url + '/';
 
 $(function () {
     $.getJSON(url, function (data) {
@@ -23,7 +23,7 @@ $(function () {
         }, {
             prompt: step_prompt,
             greetings: 'TryTry Project',
-            name: flow_name,
+            name: flow_url,
             height: 200,
             tabcompletion: true
         });
@@ -37,7 +37,7 @@ $(function () {
 });
 
 updateData = function (data) {
-   $("#flow_name").text(data.flow_name);
+   $("#flow_url").text(data.flow_url);
    $("#text-block").html(data.task);
    $(".bar").css('width', data.progress + '%');
 };

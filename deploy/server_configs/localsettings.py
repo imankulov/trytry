@@ -30,10 +30,10 @@ CACHES = {
 }
 
 # Path to module with steps
-TRYTRY_FLOWS = {
-    'simple_python': 'trytry.simple_python.steps',
-    'simple_bash': 'trytry.simple_bash.steps',
-}
+TRYTRY_FLOWS = [
+    'trytry.simple_python.steps',
+    'trytry.simple_bash.steps',
+]
 # LXC settings
 TRYTRY_LXC_ENABLED = True
 

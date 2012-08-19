@@ -2,12 +2,12 @@
 {% load url from future %}
 {% load staticfiles %}
 {% block head %}
-{% if flow_name %}
+{% if flow %}
     <script>
-      var flow_name = "{{ flow_name }}",
-          step_prompt = "{{ step_prompt|default:'> '}}",
-          progress = "{{ progress|default:'1' }}",
-          task = "{{ task|default:'Hello to trytry project. If you have any problems, just e-mail us: devnull@try-try.me' }}"
+      var flow_url = "{{ flow.url }}",
+          step_prompt = "> ",
+          progress = "1",
+          task = "Hello to trytry project. If you have any problems, just e-mail us: devnull@try-try.me"
     </script>
     <script src="{% static "js/jquery.terminal-min.js" %}"></script>
     <link rel="stylesheet" href="{% static "css/jquery.terminal.css" %}" />
@@ -17,10 +17,10 @@
 {% block content %}
 <div class="row">
   <div class="span10">
-    {% if flow_name %}
+    {% if flow %}
     <div class="row">
       <div class="8">
-        <a id="back_to_the_future" href="/">«</a><h2 id="flow_name">{{ flow_name }}</h2>
+        <a id="back_to_the_future" href="/">«</a><h2 id="flow.url">{{ flow.name }}</h2>
         <div id="code-block">
         </div>
         <div id="text-block">
@@ -34,7 +34,7 @@
           </li>
         </ul>
         <div class="progress progress-success progress-striped">
-          <div class="bar" id="flow_progress" style="width: {{ progress|default:'1' }}%">
+          <div class="bar" id="flow_progress" style="width: 1%">
           </div>
         </div>
       </div>
@@ -43,9 +43,13 @@
     <br />
     <div class="btn-group">
       <h3>Choose a course what you want to study</h3>
-        {% for flow in all_flows %}
-        <a href="/?flow={{ flow }}" class="btn">{{ flow }}</a>
+      <ul class="nav nav-tabs nav-stacked">
+        {% for flow, settings in all_flows.items %}
+        <li>
+          <a href="/?flow={{ settings.url }}">{{ settings.name }}</a>
+        </li>
         {% endfor %}
+      </ul>
     </div>
     {% endif %}
   </div>

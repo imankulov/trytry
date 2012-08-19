@@ -7,7 +7,8 @@ __flow__ = {
     'lxc_container': 'python',
     'setup': lxc_setup,
     'teardown': lxc_teardown,
-    'name': 'Simple Bash'
+    'name': 'Simple Bash',
+    'url': 'simple_bash'
 }
 
 
@@ -20,6 +21,9 @@ class GenericBashStep(GenericStep):
 
 class Step1(GenericBashStep):
     """
+    Excersise #1
+    ----
+
     """
     name = "Step1"
     expected_out = "Hello World"
