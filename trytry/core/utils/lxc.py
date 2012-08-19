@@ -56,18 +56,28 @@ def lxc_list():
 
 def lxc_clone(source, name):
     """
-    Clone the container source to target
+    Clone the container source to target.
+
+    Die with RuntimeError in case of a problem
     """
     command = ['sudo', 'lxc-clone', '-o', source, '-n', name]
-    call(command)
+    _, err, code = call(command)
+    if code != 0:
+        raise RuntimeError(err)
+
 
 def lxc_destroy(name):
     """
-    Clone the container source to target
+    Destroy the LXC container
+
+    Die with RuntimeError in case of a problem
     """
     lxc_wait(name)
     command = ['sudo', 'lxc-destroy', '-n', name]
-    call(command)
+    _, err, code = call(command)
+    if code != 0:
+        raise RuntimeError(err)
+
 
 def lxc_wait(name, state='STOPPED', timeout=10):
     """
