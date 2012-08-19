@@ -99,6 +99,7 @@ TRYTRY_SOFT_TIMEOUT = 5
 TRYTRY_HARD_TIMEOUT = 10
 TRYTRY_LXC_ENABLED = False
 TRYTRY_LXC_DEFAULT_CONTAINER = 'try-try'
+TRYTRY_PROJECT_NAME = 'Try-try project'
 
 #--- Override whatever we want
 from localsettings import *

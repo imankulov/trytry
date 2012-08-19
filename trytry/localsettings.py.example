@@ -26,6 +26,7 @@ CACHES = {
     }
 }
 
+TRYTRY_PROJECT_NAME = 'Try-try project'
 # Path to module with steps
 TRYTRY_FLOWS = {
     'simple_python': 'trytry.simple_python.tests.simple_python',
