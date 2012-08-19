@@ -7,6 +7,7 @@ __flow__ = {
     'steps': ['Step1', ],
     'setup': 'setup',
     'teardown': 'teardown',
+    'lxc_container': 'bash',
 }
 
 

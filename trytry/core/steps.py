@@ -7,6 +7,7 @@ from dotdict import dotdict
 from django.conf import settings
 from django.utils.encoding import smart_unicode
 from trytry.core.utils.call import call
+from trytry.core.utils.lxc import lxc_wrap
 
 
 class GenericStep(object):
@@ -19,6 +20,9 @@ class GenericStep(object):
                    "instruction more carefully and perform the "
                    "task more diligently. Remember, I'm watching "
                    "you.")
+
+    def __init__(self, flow=None):
+        self.flow = flow
 
     def __call__(self, user_input):
         out, err, returncode = self.run_command(user_input)
@@ -37,7 +41,10 @@ class GenericStep(object):
         :returns: A tuple containing (stdout, stderr, returncode)
         """
         command, stdin = self.get_command(user_input)
-        command = self.wrap_in_timeout(command)
+        if self.flow and settings.TRYTRY_LXC_ENABLED:
+            command = self.wrap_in_lxc(command)
+        else:
+            command = self.wrap_in_timeout(command)
         return call(command, stdin)
 
     def get_command(self, user_input):
@@ -47,10 +54,15 @@ class GenericStep(object):
         raise NotImplementedError('Must be implemented in subclass')
 
     def wrap_in_timeout(self, command):
-        command = ['timeout', '--kill-after',
-                   str(settings.TRYTRY_HARD_TIMEOUT),
-                   str(settings.TRYTRY_SOFT_TIMEOUT)] + command
+        command = ['timelimit',
+                   '-p', '-q',
+                   '-t', str(settings.TRYTRY_SOFT_TIMEOUT),
+                   '-T', str(settings.TRYTRY_HARD_TIMEOUT),
+                   '--'] + command
         return command
+
+    def wrap_in_lxc(self, command):
+        return lxc_wrap(self.flow, command)
 
     def analyze(self, out, err, returncode):
         ret = {

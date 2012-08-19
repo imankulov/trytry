@@ -55,6 +55,10 @@ class FlowPassTest(TestCase):
 
     def test_pass_flow(self):
         flow = create_flow('trytry.simple_python.tests.simple_python')
+        self.assertEqual(flow.state, 'new')
+        # setup
+        flow.setup_flow()
+        self.assertEqual(flow.state, 'active')
         # step 1
         result = flow.apply('print "hello world"')
         self.assertTrue(result.goto_next)
@@ -67,7 +71,10 @@ class FlowPassTest(TestCase):
         result = flow.apply('print 1 + 1')
         self.assertTrue(result.goto_next)
         self.assertEqual(flow.current_step, 'Step2')
-        #self.assertEqual(flow.state, 'complete')
+        self.assertEqual(flow.state, 'complete')
+        # teardown
+        flow.teardown_flow()
+        self.assertEqual(flow.state, 'destroyed')
 
 
 class FlowDiscoveryTest(TestCase):

@@ -26,3 +26,5 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+
+TRYTRY_LXC_ENABLED = False

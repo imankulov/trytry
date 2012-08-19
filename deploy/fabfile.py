@@ -3,14 +3,14 @@ import cuisine
 from fabric.api import settings, hide, run, sudo, cd, put
 
 packages = ['lxc', 'python-psycopg2', 'supervisor', 'nginx', 'uwsgi',
-            'uwsgi-plugin-python', 'postfix',
+            'uwsgi-plugin-python', 'postfix', 'timelimit',
             'python-virtualenv', 'python-pip', 'git', 'memcached',
             'python-memcache']
 repo_source = 'https://github.com/imankulov/trytry.git'
 repo_path = '/home/try/trytry'
 repo_branch = 'master'
 
-lxc_list = {
+lxc_pkg_list = {
     'bash': '',
     'python': '',
     'php': 'php5-cli',
@@ -87,7 +87,7 @@ def setup_project():
 
 def lxc_setup():
     lxc_setup_base()
-    for name, extra_packages in lxc_list.iteritems():
+    for name, extra_packages in lxc_pkg_list.iteritems():
         lxc_setup_child(name, extra_packages)
 
 def lxc_setup_base():

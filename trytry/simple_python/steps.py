@@ -4,6 +4,7 @@ from trytry.core.steps import GenericStep
 
 __flow__ = {
     'steps': ['Step1', 'Step2'],
+    'lxc_container': 'python',
 }
 
 

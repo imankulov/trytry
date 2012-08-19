@@ -7,20 +7,25 @@ from django.db import models
 class Flow(models.Model):
 
     STATE_CHOICES = (
+        ('new', 'new'),
         ('active', 'active'),
         ('complete', 'complete'),
+        ('destroyed', 'destroyed'),
     )
 
     flow_module = models.CharField(u'Module who have this flow', max_length=256)
     current_step = models.CharField(u'Step class name', max_length=256)
     state = models.CharField(u'Flow state', choices=STATE_CHOICES,
-                             default='active', max_length=64)
+                             default='new', max_length=64)
 
     def __str__(self):
         from trytry.core.utils import get_flow_name
         return get_flow_name(self.flow_module)
 
     def apply(self, user_input):
+        if self.state != 'active':
+            raise RuntimeError('Unable to execute command, as the flow is '
+                               'in {0} state'.format(self.state))
         ret = self.get_current_step()(user_input)
         if ret['goto_next']:
             next_step_name = self.get_next_step_name()
@@ -33,12 +38,12 @@ class Flow(models.Model):
 
     def get_current_step(self):
         mod = self.get_flow_module()
-        return getattr(mod, self.current_step)()
+        return getattr(mod, self.current_step)(self)
 
     def get_prev_step(self):
         prev_step_name = self.get_prev_step_name()
         if prev_step_name:
-            return getattr(self.get_flow_module(), prev_step_name)()
+            return getattr(self.get_flow_module(), prev_step_name)(self)
 
     def get_prev_step_name(self):
         steps = self.get_flow_settings().steps
@@ -53,7 +58,7 @@ class Flow(models.Model):
     def get_next_step(self):
         next_step_name = self.get_next_step_name()
         if next_step_name:
-            return getattr(self.get_flow_module(), next_step_name)()
+            return getattr(self.get_flow_module(), next_step_name)(self)
 
     def get_next_step_name(self):
         steps = self.get_flow_settings().steps
@@ -78,13 +83,17 @@ class Flow(models.Model):
         """
         Execute function defined in __flow__['setup']
         """
-        return self._exec_flow_function('setup', (self, ))
+        self._exec_flow_function('setup', (self, ))
+        self.state = 'active'
+        self.save()
 
     def teardown_flow(self):
         """
         Execute function defined in __flow__['teardown']
         """
-        return self._exec_flow_function('teardown', (self, ))
+        self._exec_flow_function('teardown', (self, ))
+        self.state = 'destroyed'
+        self.save()
 
     def _exec_flow_function(self, func_key, args=None, kwargs=None):
         """

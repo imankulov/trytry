@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 from trytry.simple_python.steps import GenericPythonStep
+from trytry.core.utils.lxc import lxc_setup, lxc_teardown
 
 
 __flow__ = {
     'steps': ['Step1', 'Step2'],
+    'lxc_container': 'python',
+    'setup': 'lxc_setup',
+    'teardown': 'lxc_teardown',
 }
 
 

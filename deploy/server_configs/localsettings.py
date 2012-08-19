@@ -33,3 +33,5 @@ CACHES = {
 TRYTRY_FLOWS = {
     'simple_python': 'trytry.simple_python.tests.simple_python',
 }
+# LXC settings
+TRYTRY_LXC_ENABLED = True
