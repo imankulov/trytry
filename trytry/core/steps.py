@@ -76,7 +76,7 @@ class GenericStep(object):
             'ok_text': out,
             'err_text': err,
         }
-        if out and out.lower() == self.expected_out:
+        if out and out.lower() == self.expected_out.lower():
             ret['hint'] = self.on_success_hint
             ret['goto_next'] = True
         elif err:

@@ -47,6 +47,22 @@ class Step1(GenericPythonStep):
     Exercise #1
     ----
 
-    In this exercise, you will need to change the code in the left box so it will print out "Hello, World!" instead of "Goodbye, World!".
+    In this exercise, you will need to print "Hello World!".
     """
-    pass
+    step = "Step1"
+    expected_out = "Hello World!"
+    on_success_hint = u'Congratulation!'
+    on_wrong_out_hint = u'Try to print "Hello World!"'
+
+
+class Step2(GenericPythonStep):
+    """
+    Exercise #2
+    ----
+
+    In this excersise, you will need to calculate 2 + 2.
+    """
+    name = "Step2"
+    expected_out = "4"
+    on_success_hint = u'Well done!'
+    on_wrong_out_hint = u'Try to print 2 + 2'

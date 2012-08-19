@@ -9,10 +9,17 @@ def simple_python_get_task(request):
         flow = Flow.objects.get(id=id)
     else:
         flow = create_flow('trytry.simple_python.steps')
-    step = flow.get_current_step()
-    return wrap_json({
-        'task': step.get_task(),
-        'progress': get_progress(flow, step),
+        flow.setup_flow()
+        request.session['simple_python_flow_id'] = flow.id
+    command_result = {}
+    if request.method == 'POST':
+        data = request.POST.copy()
+        command_result = flow.apply(data.get('command'))
+    result = {
+        'task': flow.get_task(),
+        'progress': get_progress(flow),
         'flow_name': str(flow),
-        'step_prompt': step.prompt
-    })
+        'step_prompt': flow.get_prompt()
+    }
+    result.update(command_result)
+    return wrap_json(result)

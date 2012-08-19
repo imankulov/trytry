@@ -8,6 +8,8 @@
           progress = "{{ progress|default:'1' }}",
           task = "{{ task|default:'Hello to trytry project. If you have any problems, just e-mail us: devnull@try-try.me' }}"
     </script>
+    <script src="{% static "js/jquery.terminal-min.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/jquery.terminal.css" %}" />
     <script src="{% static "js/main.js" %}"></script>
 {% endblock %}
 {% block content %}
@@ -17,11 +19,9 @@
     <div class="row">
       <div class="8">
         <h2 id="flow_name">{{ flow_name }}</h2>
-        <div class="code-block">
-          <span class="step_prompt"></span>
-          <div class="code-input" contenteditable></div>
+        <div id="code-block">
         </div>
-        <div class="text-block">
+        <div id="text-block">
         </div>
         <div class="progress progress-success progress-striped">
           <div class="bar" id="flow_progress" style="width: {{ progress|default:'1' }}%">

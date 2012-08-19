@@ -11,10 +11,11 @@ def create_flow(flow_module):
     return Flow.objects.create(flow_module=flow_module)
 
 
-def get_progress(flow, step):
+def get_progress(flow):
+    step = flow.get_current_step()
     step_list = flow.get_flow_settings().steps
     try:
-        step_index = step_list.index(step) + 1
+        step_index = step_list.index(step.name) + 1
     except ValueError:
         return 1
     else:
@@ -25,6 +26,5 @@ def get_progress(flow, step):
 
 
 def get_flow_name(module_name):
-    print module_name
     reverse_dict = dict([(v, k) for (k, v) in get_all_flows().iteritems()])
-    return reverse_dict.get(module_name)
+    return reverse_dict.get(module_name, '')

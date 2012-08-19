@@ -36,6 +36,12 @@ class Flow(models.Model):
             self.save()
         return ret
 
+    def get_task(self):
+        return self.get_current_step().get_task()
+
+    def get_prompt(self):
+        return self.get_current_step().prompt
+
     def get_current_step(self):
         mod = self.get_flow_module()
         return getattr(mod, self.current_step)(self)
