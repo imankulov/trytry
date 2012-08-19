@@ -43,9 +43,10 @@ def get_task(request, flow_name):
                     flow.current_step = current_step
                     flow.state = 'active'
             flow.save()
-            print flow.__dict__
         if data.get('command'):
             command_result = flow.apply(data.get('command'))
+            if flow.state == 'complete':
+                flow.teardown_flow()
     result = {
         'task': flow.get_task(),
         'id': flow.id,
@@ -61,6 +62,11 @@ def get_status(request, flow_id):
     flow = _get_flow(request, None, id=flow_id)
     if flow is None:
         return redirect('/')
+    session_key = '{0}_flow_id'.format(flow.get_flow_settings().url)
+    session_value = request.session.get(session_key)
+    if flow.state in ('destroyed', 'complete') and session_value == flow.id:
+        del request.session[session_key]
+
     log_list = flow.log_set.all().order_by('timestamp')
     template = 'core/status.html'
     return render(request, template, {'log_list': log_list, 'progress': get_progress(flow)})

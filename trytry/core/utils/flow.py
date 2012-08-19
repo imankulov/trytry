@@ -26,7 +26,7 @@ def create_flow(flow_module):
 def get_progress(flow):
     step = flow.get_current_step()
     step_list = flow.get_flow_settings().steps
-    if flow.state == 'complete':
+    if flow.state in ('complete', 'destroyed'):
         return 100
     try:
         step_index = step_list.index(step.name)
