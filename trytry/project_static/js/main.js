@@ -14,7 +14,12 @@ $(function () {
         var terminal = $("#code-block").terminal(function (command, term) {
                 var regexp = /^\s*$/,
                     regexp_test = regexp.test(command);
-                if (command === 'multiline on') {
+                if (command === 'terminal help' && !commandArray.length) {
+                    var color = "#8B93DD";
+                    term.echo("[[i;" + color + ";#000]multiline (on|off): enable or disable multiline editor mode']");
+                    term.echo("[[i;" + color + ";#000]clear: clear terminal']");
+                    term.echo("[[i;" + color + ";#000]help: this help']");
+                } else if (command === 'multiline on' && !multilineMode) {
                     multilineMode = true;
                     prompt = '[' + step_prompt + '] ';
                     term.set_prompt(prompt);
