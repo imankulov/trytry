@@ -3,10 +3,10 @@ import re
 import sys
 import uuid
 import markdown
-import subprocess as subp
 from dotdict import dotdict
 from django.conf import settings
 from django.utils.encoding import smart_unicode
+from trytry.core.utils.call import call
 
 
 class GenericStep(object):
@@ -38,12 +38,7 @@ class GenericStep(object):
         """
         command, stdin = self.get_command(user_input)
         command = self.wrap_in_timeout(command)
-        pipe = subp.Popen(command, stdin=subp.PIPE, stdout=subp.PIPE,
-                          stderr=subp.PIPE)
-        out, err = pipe.communicate(stdin)
-        out = out.rstrip() or None
-        err = err.rstrip() or None
-        return out, err, pipe.returncode
+        return call(command, stdin)
 
     def get_command(self, user_input):
         """

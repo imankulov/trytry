@@ -5,4 +5,4 @@ install:
   - "ln -s localsettings_travis.py trytry/localsettings.py"
   - "pip install -q -e . --use-mirrors"
   - "pip install -q -r requirements.pip --use-mirrors"
-script: "python manage.py test -v2 simple_python simple_bash"
+script: "python manage.py test -v2 core simple_python simple_bash"
