@@ -92,7 +92,7 @@ def lxc_setup():
 
 def lxc_setup_base():
     if 'try-try' not in lxc_ls():
-        run("echo 'lxc.network.type = empty' > lxc.conf")
+        put('server_configs/lxc.conf', 'lxc.conf')
         run("lxc-create -n try-try -t ubuntu -f lxc.conf -- --trim")
 
 

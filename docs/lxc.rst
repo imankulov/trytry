@@ -25,9 +25,10 @@ On-boot container launch is redundant in our environment. Open the file
 ``"false"``
 
 The next step is to create one or more templates to work with. Create a new
-file named :file:`lxc.conf` with just one line::
+file named :file:`lxc.conf` with two lines::
 
   lxc.network.type = empty
+  lxc.aa_profile = unconfined
 
 Then create a new base template with minimal Ubuntu installation.
 
