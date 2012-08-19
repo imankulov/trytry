@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
-import pickle
-import tempfile
-import subprocess as subp
-from django.core.cache import cache
 from trytry.core.steps import GenericStep
 
 
@@ -15,16 +10,15 @@ __flow__ = {
 class GenericPythonStep(GenericStep):
     prompt = u'>>> '
 
-    def run_command(self, user_input):
-        state_filename = self.restore_state_to_file()
-        q_state_filename = repr(state_filename)
+    def get_command(self, user_input):
         # if there is a pre-saved state, then make sure it
         # is loaded into the interpreter
         prefix_lines = [
-            'import cPickle as pickle',
-            '_state = pickle.load(open({0}))'.format(q_state_filename),
-            'locals().update(_state)',
-            'del _state',
+            'import os, cPickle as pickle',
+            'if os.path.isfile(".python_state"):',
+            '    _state = pickle.load(open(".python_state"))',
+            '    locals().update(_state)',
+            '    del _state',
         ]
         # Make sure that we save the state to the file after the command
         # execution
@@ -36,42 +30,13 @@ class GenericPythonStep(GenericStep):
             '    try: pickle.dumps(v)',
             '    except Exception: continue',
             '    _state[k] = v',
-            'fd = open({0}, "w")'.format(q_state_filename),
+            'fd = open(".python_state", "w")',
             'pickle.dump(_state, fd)',
             'fd.close()'
         ]
         command = prefix_lines + [user_input, ] + suffix_lines + ['', ]
-        # run the command
-        pipe = subp.Popen(['python', ],
-                          stdin=subp.PIPE,
-                          stdout=subp.PIPE,
-                          stderr=subp.PIPE)
-        out, err = pipe.communicate('\n'.join(command))
-        # save the new state to cache
-        self.store_state_from_file(state_filename)
-        # return the result
-        out = out.rstrip() or None
-        err = err.rstrip() or None
-        return out, err, pipe.returncode
-
-    def get_cache_key(self):
-        cache_key = 'step_state:{0}'.format(self.get_uuid())
-        return cache_key
-
-    def restore_state_to_file(self):
-        stored_state = cache.get(self.get_cache_key())
-        if stored_state is None:
-            stored_state = pickle.dumps({})
-        fdesc, filename = tempfile.mkstemp()
-        fd = os.fdopen(fdesc, 'w')
-        fd.write(stored_state)
-        fd.close()
-        return filename
-
-    def store_state_from_file(self, filename):
-        with open(filename) as fd:
-            cache.set(self.get_cache_key(), fd.read())
-        os.unlink(filename)
+        # return the command and stdin
+        return (['python', ], '\n'.join(command))
 
 
 class Step1(GenericPythonStep):
