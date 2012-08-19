@@ -13,10 +13,6 @@ __flow__ = {
 
 
 class GenericPythonStep(GenericStep):
-    on_err_hint = ("Oh my God! Something goes wrong. Try read "
-                   "instruction more carefully and perform the "
-                   "task more diligently. Remember, I'm watching "
-                   "you.")
     prompt = u'>>> '
 
     def run_command(self, user_input):

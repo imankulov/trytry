@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from trytry.core.models import Flow
-from trytry.conf import TRYTRY_FLOWS
 
 
 def get_all_flows():
-    return TRYTRY_FLOWS
+    return settings.TRYTRY_FLOWS
 
 
 def create_flow(flow_module):
@@ -26,5 +26,5 @@ def get_progress(flow, step):
 
 def get_flow_name(module_name):
     print module_name
-    reverse_dict = dict([(v, k) for (k, v) in TRYTRY_FLOWS.iteritems()])
+    reverse_dict = dict([(v, k) for (k, v) in get_all_flows().iteritems()])
     return reverse_dict.get(module_name)
