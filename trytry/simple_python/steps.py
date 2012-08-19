@@ -15,6 +15,7 @@ class GenericPythonStep(GenericStep):
         # if there is a pre-saved state, then make sure it
         # is loaded into the interpreter
         prefix_lines = [
+            '# -*- coding: utf-8 -*-',
             'import os, cPickle as pickle',
             'if os.path.isfile(".python_state"):',
             '    _state = pickle.load(open(".python_state"))',
@@ -37,7 +38,8 @@ class GenericPythonStep(GenericStep):
         ]
         command = prefix_lines + [user_input, ] + suffix_lines + ['', ]
         # return the command and stdin
-        return (['python', ], '\n'.join(command))
+        cmd = ['bash', '-c', 'PYTHONIOENCODING=UTF-8 python']
+        return (cmd, '\n'.join(command))
 
 
 class Step1(GenericPythonStep):

@@ -86,3 +86,17 @@ class FlowDiscoveryTest(TestCase):
     def test_all_flows(self):
         with self.settings(TRYTRY_FLOWS=self.TRYTRY_FLOWS):
             self.assertEqual(get_all_flows(), self.TRYTRY_FLOWS)
+
+
+class UnicodeTest(TestCase):
+
+    def setUp(self):
+        self.step = Step1()
+
+    def test_str_ok(self):
+        ret = self.step('print "тест"')
+        self.assertEqual(ret.ok_text, 'тест')
+
+    def test_unicode_ok(self):
+        ret = self.step('print u"тест"')
+        self.assertEqual(ret.ok_text, 'тест')
