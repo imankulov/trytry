@@ -2,6 +2,7 @@
 {% load url from future %}
 {% load staticfiles %}
 {% block head %}
+{% if flow_name %}
     <script>
       var flow_name = "{{ flow_name }}",
           step_prompt = "{{ step_prompt|default:'> '}}",
@@ -11,6 +12,7 @@
     <script src="{% static "js/jquery.terminal-min.js" %}"></script>
     <link rel="stylesheet" href="{% static "css/jquery.terminal.css" %}" />
     <script src="{% static "js/main.js" %}"></script>
+{% endif %}
 {% endblock %}
 {% block content %}
 <div class="row">

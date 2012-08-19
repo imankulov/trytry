@@ -25,8 +25,3 @@ def get_progress(flow):
         if result > 0:
             return result
         return 1
-
-
-def get_flow_name(module_name):
-    reverse_dict = dict([(v, k) for (k, v) in get_all_flows().iteritems()])
-    return reverse_dict.get(module_name, settings.TRYTRY_PROJECT_NAME)

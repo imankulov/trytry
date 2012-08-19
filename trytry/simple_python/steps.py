@@ -8,6 +8,7 @@ __flow__ = {
     'lxc_container': 'python',
     'setup': lxc_setup,
     'teardown': lxc_teardown,
+    'name': 'Simple Python'
 }
 
 

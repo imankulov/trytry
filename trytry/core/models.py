@@ -19,8 +19,7 @@ class Flow(models.Model):
                              default='new', max_length=64)
 
     def __str__(self):
-        from trytry.core.utils import get_flow_name
-        return get_flow_name(self.flow_module)
+        return self.get_flow_settings().name
 
     def apply(self, user_input):
         if self.state != 'active':
