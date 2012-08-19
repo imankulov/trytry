@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+A simple course for Python
+"""
 from trytry.core.steps import GenericStep
 from trytry.core.utils.lxc import lxc_setup, lxc_teardown
 
@@ -9,7 +12,8 @@ __flow__ = {
     'setup': lxc_setup,
     'teardown': lxc_teardown,
     'name': 'Simple Python',
-    'url': 'simple_python'
+    'url': 'simple_python',
+    'description': __doc__,
 }
 
 

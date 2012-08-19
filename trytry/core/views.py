@@ -11,8 +11,10 @@ def index(request):
     all_flows = _generate_flow_dict()
     if not flow or flow not in all_flows:
         flow = None
-    return render(request, 'core/index.html',
-                  {'all_flows': all_flows, 'flow': all_flows.get(flow, None)})
+    template = 'core/flow.html' if flow else 'core/dashboard.html'
+    return render(request, template,
+                  {'all_flows': all_flows,
+                   'flow': all_flows.get(flow, None)})
 
 
 from trytry.core.models import Flow

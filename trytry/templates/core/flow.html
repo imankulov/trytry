@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load staticfiles %}
+
+{% block head %}
+<script>
+  var flow_url = "{{ flow.url }}",
+      step_prompt = "> ",
+      progress = "1",
+      task = "Welcome to try-try project. If you have any problems, just e-mail us: devnull@try-try.me"
+</script>
+<script src="{% static "js/jquery.terminal-min.js" %}"></script>
+<link rel="stylesheet" href="{% static "css/jquery.terminal.css" %}" />
+<script src="{% static "js/main.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="span12">
+        <a id="back_to_the_future" href="/">«</a><h2 id="flow.url">{{ flow.name }}</h2>
+        <div id="code-block">
+        </div>
+        <div id="text-block">
+        </div>
+        <ul class="pager">
+          <li class="previous">
+            <a href="#">&larr;</a>
+          </li>
+          <li class="next">
+            <a href="#">&rarr;</a>
+          </li>
+        </ul>
+        <div class="progress progress-success progress-striped">
+          <div class="bar" id="flow_progress" style="width: 1%">
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
