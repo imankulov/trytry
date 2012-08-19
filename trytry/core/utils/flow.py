@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from trytry.conf import TRYTRY_FLOWS
+from django.conf import settings
 from trytry.core.models import Flow
 
 
 def get_all_flows():
-    return TRYTRY_FLOWS
+    return settings.TRYTRY_FLOWS
 
 
 def create_flow(flow_module):

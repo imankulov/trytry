@@ -92,4 +92,10 @@ LOGGING = {
     }
 }
 
+#--- Default settings for try-try defined values
+TRYTRY_FLOWS = {}
+TRYTRY_SOFT_TIMEOUT = 5
+TRYTRY_HARD_TIMEOUT = 10
+
+#--- Override whatever we want
 from localsettings import *
