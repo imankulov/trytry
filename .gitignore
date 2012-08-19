@@ -8,3 +8,4 @@ env/
 *.db
 *.sqlite
 /trytry/localsettings.py
+.*_state
