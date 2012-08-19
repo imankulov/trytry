@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-A simple course for Bash
+bash is a very exciting language. You probably cannot even imagine how
+difficult and elegant it can be.
+
+Let's play with some variables first, and then move on.
 """
 from trytry.core.steps import GenericStep
 from trytry.core.utils.lxc import lxc_setup, lxc_teardown

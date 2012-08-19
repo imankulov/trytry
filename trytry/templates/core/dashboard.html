@@ -1,12 +1,20 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load staticfiles %}
+{% load staticfiles jsonify %}
 
 {% block head %}
 <script src="{% static 'js/bootstrap-tooltip.js' %}"></script>
 <script src="{% static 'js/bootstrap-popover.js' %}"></script>
 <script>
-
+  $(function(){
+  {% for flow, settings in all_flows.items %}
+  $('#btn_{{ settings.url }}').popover({
+    title: {{ settings.name|jsonify }},
+    content: {{ settings.description|jsonify }},
+    placement: 'bottom'
+  });
+  {% endfor %}
+  });
 </script>
 {% endblock %}
 
@@ -15,7 +23,10 @@
 <div class="page-header">
   <h2>choose your course now</h2>
   {% for flow, settings in all_flows.items %}
-  <a class="btn btn-success" href="/?flow={{ settings.url }}">{{ settings.name }}</a>
+  <a id="btn_{{ settings.url }}" class="btn btn-success"
+     href="/?flow={{ settings.url }}">
+     {{ settings.name }}
+  </a>
   {% endfor %}
   <a class="btn disabled" href="javascript:void()">
     More courses are to be done ...

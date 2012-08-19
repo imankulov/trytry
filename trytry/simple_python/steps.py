@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-A simple course for Python
+This course will help you to understand how to use print statements, and
+how to put two and two together.
 """
 from trytry.core.steps import GenericStep
 from trytry.core.utils.lxc import lxc_setup, lxc_teardown

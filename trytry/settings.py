@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # external apps
     'south',
+    'jsonify',
     # internal apps
     'trytry.core',
     'trytry.simple_python',
