@@ -10,6 +10,14 @@ repo_source = 'https://github.com/imankulov/trytry.git'
 repo_path = '/home/try/trytry'
 repo_branch = 'master'
 
+lxc_list = {
+    'bash': '',
+    'python': '',
+    'php': 'php5-cli',
+    'ruby': 'ruby1.8',
+}
+
+#--- Base setup functions
 
 def setup():
     setup_packages()
@@ -75,6 +83,40 @@ def setup_project():
         u_run('/home/try/env/bin/python manage.py collectstatic --noinput')
     u_run('touch /home/try/tmp/touchme')
 
+#--- LXC snapshot management
+
+def lxc_setup():
+    lxc_setup_base()
+    for name, extra_packages in lxc_list.iteritems():
+        lxc_setup_child(name, extra_packages)
+
+def lxc_setup_base():
+    if 'try-try' not in lxc_ls():
+        run("echo 'lxc.network.type = empty' > lxc.conf")
+        run("lxc-create -n try-try -t ubuntu -f lxc.conf -- --trim")
+
+
+def lxc_setup_child(name, extra_packages):
+    """ Helper function. Creates a new child lxc container
+
+    :param name: name of the container
+    :extra_packages: space-separated list of packages to install within
+                     the container
+    """
+    if name not in lxc_ls():
+        run("lxc-clone -o try-try -n {0}".format(name))
+        if extra_packages:
+            run("chroot /var/lib/lxc/{0}/rootfs bash -c '"
+                "apt-get update &&"
+                "apt-get install --yes --force-yes {1} "
+                "'".format(name, extra_packages))
+
+def lxc_ls():
+    """ Helper function. Return the list of LXC containers """
+    res = test("lxc-ls")
+    return res.strip().split()
+
+#--- Utility functions
 
 def test(cmd, use_sudo=None, sudo_user=None):
     with settings(hide('warnings', 'running', 'stdout', 'stderr'), warn_only=True):

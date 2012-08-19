@@ -1,6 +1,9 @@
 LXC configuration
 =================
 
+Default configuration
+---------------------
+
 Try-try security model takes advantage of LXC containers. You shouldn't care
 about LXC installation, if you just installed the package to play around on your
 localhost intend to setup the web service in a *very* trusted environment.
@@ -60,4 +63,25 @@ Then you can check how it works by issuing the command
    $ lxc-start -n php -- php -r '$foo = "hello world\n"; echo $foo;'
    hello world
 
+
 For more information about LXC managing visit https://help.ubuntu.com/12.04/serverguide/lxc.html
+
+
+Speed-up lxc cloning
+--------------------
+
+By default cloning a new environment takes about 10 seconds, but this
+timespan can be significantly improved by leveraging btrfs snapshots.
+
+.. code-block:: console
+
+   # apt-get install btrfs-tools
+   # mkfs.btrfs /dev/<device-name>
+   # mount /dev/<device-name> /var/lib/lxc
+   # echo "/dev/<device-name> /var/lib/lxc/ btrfs defaults 0 0" >> /etc/fstab
+
+Enjoy watching the list of btrfs subvolumes while creating new virtual images
+
+.. code-block:: console
+
+   # btrfs subvolume list /var/lib/lxc/
