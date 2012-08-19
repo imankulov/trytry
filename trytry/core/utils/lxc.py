@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+import pipes
 from django.conf import settings
 from trytry.core.utils.call import call
-import pipes
 
 #--- Setup and teardown functions
+
 
 def lxc_setup(flow_obj):
     if not settings.TRYTRY_LXC_ENABLED:
@@ -54,6 +55,7 @@ def lxc_list():
     out, _, _ = call(['sudo', 'lxc-ls'])
     return out.strip().split()
 
+
 def lxc_clone(source, name):
     """
     Clone the container source to target.
@@ -90,6 +92,7 @@ def lxc_wait(name, state='STOPPED', timeout=10):
     _, err, code = call(command)
     if code != 0:
         raise RuntimeError(err)
+
 
 def _get_lxc_wait_command(name, state='STOPPED', timeout=10):
     command = [
