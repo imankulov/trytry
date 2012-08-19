@@ -14,6 +14,7 @@ class GenericStep(object):
     on_success_hint = None
     on_wrong_out_hint = None
     on_err_hint = None
+    prompt = u'> '
 
     def __call__(self, user_input):
         out, err, returncode = self.run_command(user_input)

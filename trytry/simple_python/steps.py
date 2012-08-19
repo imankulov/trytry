@@ -17,6 +17,7 @@ class GenericPythonStep(GenericStep):
                    "instruction more carefully and perform the "
                    "task more diligently. Remember, I'm watching "
                    "you.")
+    prompt = u'>>> '
 
     def run_command(self, user_input):
         state_filename = self.restore_state_to_file()
