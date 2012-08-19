@@ -21,6 +21,10 @@ What we propose:
   networks will be at the service of your happy visitors.
 
 
+Visit our documentation page at http://try-try.readthedocs.org/ and enjoy
+our sample installation at http://try-try.me/ . Yes, there you can get root
+access to Ubuntu distribution for free!
+
 .. image:: https://secure.travis-ci.org/imankulov/trytry.png?branch=master
    :alt: Build Status
    :target: https://secure.travis-ci.org/imankulov/trytry
