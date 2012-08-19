@@ -102,5 +102,9 @@ TRYTRY_LXC_ENABLED = False
 TRYTRY_LXC_DEFAULT_CONTAINER = 'try-try'
 TRYTRY_PROJECT_NAME = 'Try-try project'
 
+from trytry.core.utils.discovery import discover_flows
+TRYTRY_FLOWS = discover_flows()
+
+
 #--- Override whatever we want
 from localsettings import *
