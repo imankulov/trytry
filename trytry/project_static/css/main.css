@@ -1,0 +1,29 @@
+.code-block, .text-block {
+    height: 200px;
+    width: 100%;
+    margin-top: 40px;
+    border: 1px solid black;
+    padding: 3px 6px 3px 3px;
+    background: none repeat scroll 0 0 lightgrey;
+}
+
+.progress {
+    margin: 5px;
+    width: 100%;
+}
+
+.code-input {
+    height: 96%;
+    width: 96%;
+    overflow: auto;
+    background: none repeat scroll 0 0 white;
+    float: right;
+}
+
+.step_prompt {
+    float: left;
+}
+
+.code-input {
+    float: right;
+}

@@ -12,5 +12,7 @@ def simple_python_get_task(request):
     step = flow.get_current_step()
     return wrap_json({
         'task': step.get_task(),
-        'progress': get_progress(flow, step)
+        'progress': get_progress(flow, step),
+        'flow_name': str(flow),
+        'step_prompt': step.prompt
     })

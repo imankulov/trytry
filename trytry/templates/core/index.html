@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 {% load url from future %}
+{% load staticfiles %}
 {% block head %}
     <script>
-      var flow_name = "{{ flow_name }}";
+      var flow_name = "{{ flow_name }}",
+          step_prompt = "{{ step_prompt|default:'> '}}",
+          progress = "{{ progress|default:'1' }}",
+          task = "{{ task|default:'Hello to trytry project. If you have any problems, just e-mail us: devnull@try-try.me' }}"
     </script>
+    <script src="{% static "js/main.js" %}"></script>
 {% endblock %}
 {% block content %}
 <div class="row">
@@ -11,12 +16,18 @@
     {% if flow_name %}
     <div class="row">
       <div class="8">
-        <div class="controls">
-          <input type="text" class="input-xlarge" id="input_code" />
-          <p class="help-block">Test me again</p>
+        <h2 id="flow_name">{{ flow_name }}</h2>
+        <div class="code-block">
+          <span class="step_prompt"></span>
+          <div class="code-input" contenteditable></div>
+        </div>
+        <div class="text-block">
+        </div>
+        <div class="progress progress-success progress-striped">
+          <div class="bar" id="flow_progress" style="width: {{ progress|default:'1' }}%">
+          </div>
         </div>
       </div>
-    </div>
     {% else %}
     <h1>Welcome to TryTry project!</h1>
     <br />

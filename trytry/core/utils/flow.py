@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from trytry.conf import TRYTRY_FLOWS
 from trytry.core.models import Flow
+from trytry.conf import TRYTRY_FLOWS
 
 
 def get_all_flows():
